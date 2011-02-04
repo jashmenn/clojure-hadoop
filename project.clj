@@ -10,6 +10,7 @@
                  [org.apache.hadoop/hadoop-core "0.20.2"]
                  [log4j/log4j "1.2.16"]]
   :dev-dependencies [[swank-clojure "1.2.1"]]
+  :jvm-opts ["-Xmx1400m"]
   :aot [clojure-hadoop.config
         clojure-hadoop.defjob
         clojure-hadoop.gen

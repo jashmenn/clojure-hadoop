@@ -49,7 +49,8 @@
 
 (ns clojure-hadoop.examples.wordcount3
   (:import (java.util StringTokenizer))
-  (:use clojure.test clojure-hadoop.job))
+  (:use [clojure.test] 
+        [clojure-hadoop.job]))
 
 (defn my-map [key value]
   (map (fn [token] [token 1])
@@ -70,3 +71,9 @@
                  :input "README.txt"
                  :output "tmp/out3"
                  :replace "true"})))
+
+(comment
+
+  (test-wordcount-3)
+
+  )
