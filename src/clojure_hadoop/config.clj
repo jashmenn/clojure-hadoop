@@ -98,6 +98,7 @@
       :else
       (.setReducerClass jobconf (Class/forName value)))))
 
+<<<<<<< HEAD:src/clojure_hadoop/config.clj
 ;; Sets number of reducer tasks
 (defmethod conf :reduce-count [^JobConf jobconf key value]
   (cond
@@ -121,6 +122,18 @@
 
       :else
       (.setCombinerClass jobconf (Class/forName value)))))
+
+;; The mapper setup function.  Must be a Clojure function as
+;; namespace/symbol.
+(defmethod conf :map-setup [#^JobConf jobconf key value]
+  (let [value (as-str value)]
+    (.set jobconf "clojure-hadoop.job.map.setup" value)))
+
+;; The reducer setup function.  Must be a Clojure function as
+;; namespace/symbol.
+(defmethod conf :reduce-setup [#^JobConf jobconf key value]
+  (let [value (as-str value)]
+    (.set jobconf "clojure-hadoop.job.reduce.setup" value)))
 
 ;; The mapper reader function, converts Hadoop Writable types to
 ;; native Clojure types.
@@ -266,11 +279,13 @@ Other available options are:
  -output-key        Class for job output key
  -output-value      Class for job output value
  -map-count         Number of Mapper instances
+ -map-setup         Namespace/name of setup function for mapper
  -map-output-key    Class for intermediate Mapper output key
  -map-output-value  Class for intermediate Mapper output value
  -map-reader        Mapper reader function, as namespace/name
  -map-writer        Mapper writer function, as namespace/name
  -reduce-count      Number of Reducer instances
+ -reduce-setup      Namespace/name of setup function for reducer
  -reduce-reader     Reducer reader function, as namespace/name
  -reduce-writer     Reducer writer function, as namespace/name
  -combine           Combiner function, as namespace/name or class name
