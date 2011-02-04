@@ -98,7 +98,6 @@
       :else
       (.setReducerClass jobconf (Class/forName value)))))
 
-<<<<<<< HEAD:src/clojure_hadoop/config.clj
 ;; Sets number of reducer tasks
 (defmethod conf :reduce-count [^JobConf jobconf key value]
   (cond
