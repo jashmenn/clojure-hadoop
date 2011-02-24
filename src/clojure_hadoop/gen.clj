@@ -26,24 +26,29 @@
 
   After compiling your namespace, you can run it as a Hadoop job using
   the standard Hadoop command-line tools."
-  []
+  [& {:keys [configured-extends
+             mapper-extends
+             reducer-extends]
+      :or {configured-extends "org.apache.hadoop.conf.Configured"
+           mapper-extends "org.apache.hadoop.mapred.MapReduceBase"
+           reducer-extends "org.apache.hadoop.mapred.MapReduceBase"}}]
   (let [the-name (.replace (str (ns-name *ns*)) \- \_)]
     `(do
        (gen-class
         :name ~the-name
-        :extends "org.apache.hadoop.conf.Configured"
+        :extends ~configured-extends
         :implements ["org.apache.hadoop.util.Tool"]
         :prefix "tool-"
         :main true)
        (gen-class
         :name ~(str the-name "_mapper")
-        :extends "org.apache.hadoop.mapred.MapReduceBase"
+        :extends ~mapper-extends
         :implements ["org.apache.hadoop.mapred.Mapper"]
         :prefix "mapper-"
         :main false)
        (gen-class
         :name ~(str the-name "_reducer")
-        :extends "org.apache.hadoop.mapred.MapReduceBase"
+        :extends ~reducer-extends
         :implements ["org.apache.hadoop.mapred.Reducer"]
         :prefix "reducer-"
         :main false))))
