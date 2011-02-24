@@ -42,3 +42,13 @@
                 [(longw 5) 
                  (longw 4)]
                 [(text "foo") (longw 9)]))
+
+(deftest test-word-count
+  (test-map-reduce (TokenCountMapper.) (LongSumReducer.) 
+     [[(text "_") (text "my dog has fleas")]
+      [(text "_") (text "my cat has fleas")]]
+     [[(text "cat") (longw 1)]
+      [(text "dog") (longw 1)]
+      [(text "fleas") (longw 2)]
+      [(text "has") (longw 2)]
+      [(text "my")  (longw 2)]]))
