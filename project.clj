@@ -9,7 +9,11 @@
                  [org.clojure/clojure-contrib "1.2.0"]
                  [org.apache.hadoop/hadoop-core "0.20.2"]
                  [log4j/log4j "1.2.16"]]
-  :dev-dependencies [[swank-clojure "1.2.1"]]
+  :dev-dependencies 
+  [[swank-clojure "1.2.1"]
+   [org.clojars.nmurray/mrunit "1.0.0"
+    :exclusions
+    [com.cloudera.hadoop/hadoop-core]]]
   :jvm-opts ["-Xmx1400m"]
   :aot [clojure-hadoop.config
         clojure-hadoop.defjob
